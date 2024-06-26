@@ -1,7 +1,10 @@
+'use client'
+
 import React, { memo, useEffect, useRef } from "react";
 import { fromEvent, animationFrameScheduler, Subscription } from "rxjs";
 import { switchMap, takeUntil, tap } from "rxjs/operators";
 import { appColors } from "../../../tailwind.config";
+import { useWindowSize } from "../common/windowSize";
 
 interface SpiralProp {
   animationStarted?: Function;
@@ -9,6 +12,7 @@ interface SpiralProp {
 
 const Spiral = (props: SpiralProp) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const windowSize = useWindowSize();
 
   useEffect(() => {
     const subsManager = new Subscription();
@@ -21,7 +25,7 @@ const Spiral = (props: SpiralProp) => {
     let time = 0;
     let velocity = 0.1;
     let velocityTarget = 0.1;
-    let width: number, height: number, lastX: number, lastY: number;
+    let lastX: number, lastY: number;
 
     const MAX_OFFSET = 400;
     const SPACING = 4;
@@ -30,18 +34,18 @@ const Spiral = (props: SpiralProp) => {
     const POINTS_PER_LAP = 6;
 
     const resize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      canvas.width = windowSize.width;
+      canvas.height = windowSize.height;
     };
 
     const clear = () => {
-      context.clearRect(0, 0, width, height);
+      context.clearRect(0, 0, windowSize.width, windowSize.height);
     };
 
     const render = () => {
       let x: number, y: number;
-      const cx = width / 1.3;
-      const cy = height / 1.5;
+      const cx = windowSize.width / 1.3;
+      const cy = windowSize.height / 1.5;
 
       context.globalCompositeOperation = "lighter";
       context.strokeStyle = appColors.ORANGE_SUNSHINE[500];
@@ -65,7 +69,7 @@ const Spiral = (props: SpiralProp) => {
 
         y -= Math.pow(o, 2) * 200;
         y += (200 * value) / MAX_OFFSET;
-        y += (x / cx) * (width * 0.1);
+        y += (x / cx) * (windowSize.width * 0.1);
 
         context.globalAlpha = 1 - value / MAX_OFFSET;
 
@@ -95,8 +99,8 @@ const Spiral = (props: SpiralProp) => {
       let vx = (event.clientX - lastX) / 100;
       let vy = (event.clientY - lastY) / 100;
 
-      if (event.clientY < height / 2) vx *= -1;
-      if (event.clientX > width / 2) vy *= -1;
+      if (event.clientY < windowSize.height / 2) vx *= -1;
+      if (event.clientX > windowSize.width / 2) vy *= -1;
 
       velocityTarget = vx + vy;
 
@@ -108,8 +112,8 @@ const Spiral = (props: SpiralProp) => {
       let vx = (event.touches[0].clientX - lastX) / 100;
       let vy = (event.touches[0].clientY - lastY) / 100;
 
-      if (event.touches[0].clientY < height / 2) vx *= -1;
-      if (event.touches[0].clientX > width / 2) vy *= -1;
+      if (event.touches[0].clientY < windowSize.height / 2) vx *= -1;
+      if (event.touches[0].clientX > windowSize.width / 2) vy *= -1;
 
       velocityTarget = vx + vy;
 
@@ -118,11 +122,12 @@ const Spiral = (props: SpiralProp) => {
     };
 
     const setup = () => {
-      resize();
+      // resize();
+      canvas.width = windowSize.width;
+      canvas.height = windowSize.height;
       step();
-      // render();
 
-      subsManager.add(fromEvent(window, "resize").subscribe(resize));
+      // subsManager.add(fromEvent(window, "resize").subscribe(resize));
       subsManager.add(
         fromEvent<MouseEvent>(document, "mousedown")
           .pipe(
@@ -143,7 +148,7 @@ const Spiral = (props: SpiralProp) => {
         fromEvent<TouchEvent>(document, "touchstart")
           .pipe(
             tap((event) => {
-              event.preventDefault();
+              // event.preventDefault();
               lastX = event.touches[0].clientX;
               lastY = event.touches[0].clientY;
             }),
@@ -156,7 +161,6 @@ const Spiral = (props: SpiralProp) => {
           )
           .subscribe()
       );
-
     };
 
     setup();
@@ -164,9 +168,9 @@ const Spiral = (props: SpiralProp) => {
     return () => {
       subsManager.unsubscribe();
     };
-  }, []);
+  }, [windowSize]);
 
-  return <canvas className="h-full w-full" ref={canvasRef} />;
+  return <canvas ref={canvasRef} />;
 };
 
 export default memo(Spiral);

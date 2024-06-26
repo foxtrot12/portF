@@ -1,20 +1,14 @@
 import { memo, useEffect, useState } from "react";
-
-export function toTitleCase(text: string): string {
-  return text.replace(/\w\S*/g, (word: string) => {
-    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-  });
-}
-
+import { getTitleCase } from "../common/jsUtils";
 interface TitleCaseProps {
   children: string;
 }
 
 function TitleCase(props: TitleCaseProps) {
-  const [title, setTitle] = useState<string>(toTitleCase(props.children));
+  const [title, setTitle] = useState<string>(getTitleCase(props.children));
 
   useEffect(() => {
-    setTitle(toTitleCase(props.children));
+    setTitle(getTitleCase(props.children));
   }, [props.children]);
 
   return <>{title}</>;

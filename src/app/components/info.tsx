@@ -2,7 +2,7 @@ import { FC, memo, useState } from "react";
 import UpperCase from "./upperCase";
 import { useLocalization } from "../common/localization";
 
-const Name: FC = memo(() => {
+function NameC() {
   const { translations } = useLocalization();
 
   return (
@@ -12,9 +12,11 @@ const Name: FC = memo(() => {
       <UpperCase>{translations.chinmaya}</UpperCase>
     </div>
   );
-});
+}
 
-const AboutMe: FC = memo(() => {
+const Name = memo(NameC);
+
+function AboutMeC() {
   const { translations } = useLocalization();
 
   return (
@@ -24,7 +26,9 @@ const AboutMe: FC = memo(() => {
       {translations.aboutMe}
     </div>
   );
-});
+}
+
+const AboutMe = memo(AboutMeC);
 
 const VIEW_STATES: Array<FC> = [Name, AboutMe];
 

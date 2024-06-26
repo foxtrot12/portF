@@ -8,7 +8,7 @@ import { downloadFile } from "../common/jsUtils";
 import LinesBg from "../common/linesBg";
 import { appColors } from "../../../tailwind.config";
 
-const ResumeBtn = memo(() => {
+function ResumeBtnC() {
   const { translations } = useLocalization();
 
   const resumeUrl =
@@ -34,9 +34,11 @@ const ResumeBtn = memo(() => {
       </div>
     </button>
   );
-});
+}
 
-const MarioLink = memo(() => {
+const ResumeBtn = memo(ResumeBtnC);
+
+function MarioLinkC() {
   const { translations } = useLocalization();
 
   const marioUrl = "https://foxtrot12.github.io/vitrol-enigma";
@@ -62,9 +64,11 @@ const MarioLink = memo(() => {
       </div>
     </Link>
   );
-});
+}
 
-const Options = memo(() => {
+const MarioLink = memo(MarioLinkC);
+
+function OptionsC() {
   return (
     <div className="flex flex-col gap-6 text-2xl ">
       <ResumeBtn />
@@ -72,7 +76,9 @@ const Options = memo(() => {
       <div className="flex"></div>
     </div>
   );
-});
+}
+
+const Options = memo(OptionsC);
 
 function Landing() {
   const { translations } = useLocalization();

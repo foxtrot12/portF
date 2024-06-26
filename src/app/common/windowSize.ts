@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import { fromEvent } from "rxjs";
 
@@ -9,11 +9,15 @@ interface WindowSizeT {
 
 export function useWindowSize(): WindowSizeT {
   const [windowSize, setWindowSize] = useState<WindowSizeT>({
-    height: window.innerHeight,
-    width: window.innerWidth,
+    height: 0,
+    width: 0,
   });
 
   useEffect(() => {
+    setWindowSize({
+      height: window.innerHeight,
+      width: window.innerWidth,
+    });
     const resizeSubs = fromEvent(window, "resize").subscribe(() => {
       setWindowSize({ height: window.innerHeight, width: window.innerWidth });
     });

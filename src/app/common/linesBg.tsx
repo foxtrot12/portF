@@ -1,3 +1,5 @@
+'use client'
+
 import { memo, useEffect, useRef } from "react";
 import { useWindowSize } from "./windowSize";
 import { animationFrameScheduler, Subscription } from "rxjs";
@@ -82,7 +84,7 @@ function LinesBg(props: { lineColor: string }) {
         ctx.strokeStyle = props.lineColor;
         console.log(props.lineColor)
     }
-  },[props.lineColor])
+  },[props.lineColor,windowSize])
   
 
   return (

@@ -1,3 +1,5 @@
+'use client'
+
 import React, { memo, useEffect, useRef } from "react";
 import { fromEvent, animationFrameScheduler, Subscription } from "rxjs";
 import { switchMap, takeUntil, tap } from "rxjs/operators";

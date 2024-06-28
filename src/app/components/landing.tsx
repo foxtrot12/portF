@@ -5,8 +5,8 @@ import Info from "./info";
 import { useLocalization } from "../common/localization";
 import Link from "next/link";
 import { downloadFile } from "../common/jsUtils";
-import LinesBg from "../common/linesBg";
 import { appColors } from "../../../tailwind.config";
+import LinesBg from "./linesBg";
 
 function ResumeBtnC() {
   const { translations } = useLocalization();

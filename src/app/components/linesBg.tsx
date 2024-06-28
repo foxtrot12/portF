@@ -1,7 +1,7 @@
 'use client'
 
 import { memo, useEffect, useRef } from "react";
-import { useWindowSize } from "./windowSize";
+import { useWindowSize } from "../common/windowSize";
 import { animationFrameScheduler, Subscription } from "rxjs";
 
 function LinesBg(props: { lineColor: string }) {

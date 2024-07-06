@@ -28,3 +28,7 @@ export async function downloadFile(url: string, fileName : string): Promise<void
       console.error(`Error: ${error?.message}`);
   }
 }
+
+export function getRandomNumberBetween(min : number ,max : number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}

@@ -15,14 +15,14 @@ function ResumeBtnC() {
     "https://raw.githubusercontent.com/foxtrot12/resume/main/Chinmaya_Sharma_Resume.pdf";
 
   const [linesColor, setLinesColor] = useState<string>(
-    `${appColors.YOYO[600]}`
+    `${appColors.PARK_GREEN[500]}`
   );
   return (
     <button
       onClick={() => downloadFile(resumeUrl, "Chinmaya_Sharma_Resume.pdf")}
       className="flex relative self-end rounded-xl px-3 py-1 shadow-md border-solid border-1 border-MANNA-500"
-      onPointerEnter={() => setLinesColor(`${appColors.PARK_GREEN[500]}`)}
-      onPointerLeave={() => setLinesColor(`${appColors.YOYO[600]}`)}
+      onPointerEnter={() => setLinesColor(`${appColors.YOYO[600]}`)}
+      onPointerLeave={() => setLinesColor(`${appColors.PARK_GREEN[500]}`)}
     >
       <TitleCase>{`${translations.download} ${translations.resume}`}</TitleCase>
       <div
@@ -68,10 +68,35 @@ function MarioLinkC() {
 
 const MarioLink = memo(MarioLinkC);
 
+function SkillsBtnC() {
+  const { translations } = useLocalization();
+
+  const [linesColor, setLinesColor] = useState<string>(
+    `${appColors.NEO_PACCHA[500]}`
+  );
+  return <button
+    className="flex relative self-end rounded-xl px-3 py-1 shadow-md border-solid border-1 border-MANNA-500"
+    onPointerEnter={() => setLinesColor(`${appColors.ORANGE_SUNSHINE[500]}`)}
+    onPointerLeave={() => setLinesColor(`${appColors.NEO_PACCHA[500]}`)}
+  >
+    <TitleCase>{`${translations.skills}`}</TitleCase>
+    <div
+      className="absolute w-full h-full bg-POP_BLACK-400 bg-opacity-50"
+      style={{ zIndex: "-1" }}
+    >
+      {" "}
+      <LinesBg lineColor={linesColor} />
+    </div>
+  </button>
+}
+
+const SkillsBtn = memo(SkillsBtnC)
+
 function OptionsC() {
   return (
     <div className="flex flex-col gap-6 text-2xl ">
       <ResumeBtn />
+      <SkillsBtn/>
       <MarioLink />
       <div className="flex"></div>
     </div>

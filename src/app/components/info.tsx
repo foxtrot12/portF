@@ -1,7 +1,7 @@
 import { FC, memo, useEffect, useMemo, useState } from "react";
 import UpperCase from "./upperCase";
 import { useLocalization } from "../common/localization";
-import { Editor } from "@monaco-editor/react";
+
 import { animationFrameScheduler, asyncScheduler, Subscription } from "rxjs";
 import { getRandomNumberBetween } from "../common/jsUtils";
 

@@ -82,7 +82,7 @@ function LinesBg(props: { lineColor: string }) {
 
     if(ctx){
         ctx.strokeStyle = props.lineColor;
-        console.log(props.lineColor)
+        // console.log(props.lineColor)
     }
   },[props.lineColor,windowSize])
   

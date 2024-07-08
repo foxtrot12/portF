@@ -50,7 +50,6 @@ function LinesBg(props: { lineColor: string }) {
         line.x += line.speed * line.direction;
 
         ctx.beginPath();
-        // ctx.strokeStyle = props.lineColor;
         ctx.lineWidth = 2;
         ctx.moveTo(line.x, line.y);
         ctx.lineTo(line.x + canvas.width/3, line.y);
@@ -82,7 +81,6 @@ function LinesBg(props: { lineColor: string }) {
 
     if(ctx){
         ctx.strokeStyle = props.lineColor;
-        // console.log(props.lineColor)
     }
   },[props.lineColor,windowSize])
   

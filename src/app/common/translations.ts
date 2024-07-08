@@ -8,8 +8,12 @@ export const translations = {
   download: "download",
   getToKnowMe: "get to know me",
   aboutMe: `
-I am Chinmaya, a passionate web developer skilled in Angular, React, and reactive programming. I excel at creating visually appealing, accessible web applications and quickly adapt to new frameworks. With experience in Unity and C#, I have led projects enhancing frontend stability and software accessibility.
-
-Let's connect and build something amazing together!`,
-skills:`skills`
+  I am Chinmaya, a passionate web developer skilled in Angular, 
+  React, and reactive programming. I excel at creating visually 
+  appealing, accessible web applications and quickly adapt to new 
+  frameworks. With experience in Unity and C#, I have led projects 
+  enhancing frontend stability and software accessibility.Let's 
+  connect and build something amazing together!`,
+  skills: `skills`,
+  clickTrails: "click & drag for trails",
 };

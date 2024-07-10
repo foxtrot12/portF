@@ -1,12 +1,22 @@
 import Link from "next/link";
-import { useState, memo, PropsWithoutRef } from "react";
+import {
+  useState,
+  memo,
+  PropsWithoutRef,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { appColors } from "../../../tailwind.config";
 import { downloadFile } from "../common/jsUtils";
 import { useLocalization } from "../common/localization";
-import { LandingPageParams } from "./landing";
 import LinesBg from "./linesBg";
 import { SkillsBtn } from "./skills";
 import TitleCase from "./titleCase";
+import { ViewT } from "./landing";
+export interface LandingPageParams {
+  setViewState: Dispatch<SetStateAction<ViewT>>;
+  viewState?: ViewT;
+}
 
 export function useOptionsInteractive(
   hoverColor: string,
@@ -21,7 +31,7 @@ export function useOptionsInteractive(
   return {
     parentProps: {
       className:
-        "flex relative bg-POP_BLACK-400 bg-opacity-50 self-end rounded-xl px-3 py-1 shadow-md border-solid border-1 border-MANNA-500",
+        "flex relative bg-POP_BLACK-400 bg-opacity-40 self-end rounded-xl px-3 py-1 shadow-md border-solid border-1 border-MANNA-500",
       onPointerEnter: () => setLinesColor(hoverColor),
       onPointerLeave: () => setLinesColor(normalColor),
     },
@@ -32,6 +42,26 @@ export function useOptionsInteractive(
     linesColor,
   };
 }
+
+function InfoBtnC({ setViewState }: LandingPageParams) {
+  const { translations } = useLocalization();
+
+  const { parentProps, innerProps, linesColor } = useOptionsInteractive(
+    appColors.NEO_PACCHA[500],
+    appColors.ORANGE_SUNSHINE[500]
+  );
+  return (
+    <button {...parentProps} onClick={() => setViewState("info")}>
+      <TitleCase>{`${translations.info}`}</TitleCase>
+      <div {...innerProps}>
+        {" "}
+        <LinesBg lineColor={linesColor} />
+      </div>
+    </button>
+  );
+}
+
+const InfoBtn = memo(InfoBtnC);
 
 function ResumeBtnC() {
   const { translations } = useLocalization();
@@ -83,11 +113,12 @@ function MarioLinkC() {
 
 const MarioLink = memo(MarioLinkC);
 
-function OptionsC({ setViewState }: LandingPageParams) {
+function OptionsC({ setViewState, viewState }: LandingPageParams) {
   return (
     <div className="flex flex-col gap-6 text-2xl ">
       <ResumeBtn />
-      <SkillsBtn setViewState={setViewState} />
+      {viewState === "info" && <SkillsBtn setViewState={setViewState} />}
+      {viewState === "skills" && <InfoBtn setViewState={setViewState} />}
       <MarioLink />
       <div className="flex"></div>
     </div>

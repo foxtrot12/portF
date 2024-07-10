@@ -5,7 +5,7 @@ import { LocalizationProvider } from "./common/localization";
 
 export default function Home() {
   useEffect(() => {
-    document.body.classList.toggle("dark", true);
+    // document.body.classList.toggle("dark", true);
   }, []);
   return (
       <LocalizationProvider>

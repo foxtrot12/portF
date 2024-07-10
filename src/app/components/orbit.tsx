@@ -12,7 +12,7 @@ function Orbit() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const contRef = useRef<HTMLDivElement>(null);
 
-  const wSize = useWindowSize;
+  const wSize = useWindowSize();
   const orbs: any[] = [];
 
   const rand = (rMi: number, rMa: number) =>
@@ -86,23 +86,19 @@ function Orbit() {
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    const container = contRef.current;
 
+    if (!ctx || !container) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     const dpr = window.devicePixelRatio;
-    const cw = window.innerWidth;
-    const ch = window.innerHeight;
+    const rect = container.getBoundingClientRect();
+    const cw = rect.width;
+    const ch = rect.height;
     canvas.width = cw * dpr;
     canvas.height = ch * dpr;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.scale(dpr, dpr);
     ctx.lineCap = "round";
-
-    const container = contRef.current;
-    const setCanvas = () => {
-      if (!container) return;
-      const rect = container.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
-    };
 
     const handleMouseMove = (e: MouseEvent) => {
       const mx = e.pageX - canvas.offsetLeft;
@@ -131,9 +127,11 @@ function Orbit() {
         });
       };
 
-      interval(50, animationFrameScheduler)
-        .pipe(takeWhile(() => true))
-        .subscribe(updateOrbs);
+      subsManager.add(
+        interval(25, animationFrameScheduler)
+          .pipe(takeWhile(() => true))
+          .subscribe(updateOrbs)
+      );
     };
 
     const ptrDownSubs = fromEvent<PointerEvent>(
@@ -147,10 +145,10 @@ function Orbit() {
       })
     );
 
-    for (let count = 0; count < 100; count++) {
+    for (let count = 0; count < 500; count++) {
       createOrb(cw / 2, ch / 2 + count * 2, cw, ch, ctx);
     }
-    setCanvas();
+
     loop();
 
     return () => {

@@ -79,8 +79,8 @@ function Skills() {
   };
 
   return (
-    <div className={`content-center h-full w-3/5 flex pt-6`}>
-      <div className={`flex flex-col sm:flex-row `}>
+    <div className={`content-center h-full flex pt-6`}>
+      <div className={`flex flex-col sm:flex-row ${isNaN(openIndex) ? 'sm:w-full w-1/3' :''}`}>
         {SKILLS.map(
           (skill, index) =>
             isNaN(openIndex) && (

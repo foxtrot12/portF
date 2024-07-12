@@ -195,40 +195,6 @@ function SkillsBtnC({ setViewState }: LandingPageParams) {
 
 export const SkillsBtn = memo(SkillsBtnC);
 
-function SkillC(props: {
-  head: string;
-  body: string;
-  img: ImageComponentT;
-  openToggle: Function;
-  isOpen: boolean;
-  isAnyOtherOpen: boolean;
-}) {
-  return (
-    <div className={`flex gap-6 h-1/6`} key={props.head}>
-      <button
-        onClick={() => props.openToggle()}
-        className="flex h-full dark:bg-YOYO-700 dark:bg-opacity-40 rounded-xl"
-      >
-        <props.img imageProps={{ className: "h-full w-full" }} />
-      </button>
-      <div
-        className={`flex gap-6 bg-MANNA-800 bg-opacity-30 rounded-xl items-center ${
-          props.isOpen ? "" : "hidden"
-        }`}
-      >
-        <h1 className={`flex text-PINK_PONG-500 text-xl font-extrabold`}>
-          <TitleCase>{props.head}</TitleCase>
-        </h1>
-        <p className={`flex font-bold text-ORANGE_SUNSHINE-500`}>
-          <SentenceCase>{props.body}</SentenceCase>
-        </p>
-      </div>
-    </div>
-  );
-}
-
-const Skill = memo(SkillC);
-
 function Skills() {
   const { translations } = useLocalization();
   const [openIndex, setOpenIndex] = useState<number>(NaN);

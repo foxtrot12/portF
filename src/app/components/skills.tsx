@@ -1,15 +1,19 @@
-import { useState, memo, FC, PropsWithoutRef } from "react";
+import { useState, memo, FC, PropsWithoutRef, useMemo } from "react";
 import { appColors } from "../../../tailwind.config";
 import { useLocalization } from "../common/localization";
 import LinesBg from "./linesBg";
 import TitleCase from "./titleCase";
 import { LandingPageParams, useOptionsInteractive } from "./options";
 import SentenceCase from "./sentenceCase";
+import { FaArrowLeft } from "react-icons/fa6";
+import UpperCase from "./upperCase";
+
+type ImageComponentT = FC<{ imageProps?: PropsWithoutRef<any> }>;
 
 const SKILLS: {
   head: string;
   body: string;
-  image: FC<{ imageProps?: PropsWithoutRef<any> }>;
+  image: ImageComponentT;
 }[] = [
   {
     head: "typescript",
@@ -28,7 +32,6 @@ const SKILLS: {
           stroke-linejoin="round"
         ></g>
         <g id="SVGRepo_iconCarrier">
-          <title>file_type_typescript</title>
           <path
             d="M23.827,8.243A4.424,4.424,0,0,1,26.05,9.524a5.853,5.853,0,0,1,.852,1.143c.011.045-1.534,1.083-2.471,1.662-.034.023-.169-.124-.322-.35a2.014,2.014,0,0,0-1.67-1c-1.077-.074-1.771.49-1.766,1.433a1.3,1.3,0,0,0,.153.666c.237.49.677.784,2.059,1.383,2.544,1.095,3.636,1.817,4.31,2.843a5.158,5.158,0,0,1,.416,4.333,4.764,4.764,0,0,1-3.932,2.815,10.9,10.9,0,0,1-2.708-.028,6.531,6.531,0,0,1-3.616-1.884,6.278,6.278,0,0,1-.926-1.371,2.655,2.655,0,0,1,.327-.208c.158-.09.756-.434,1.32-.761L19.1,19.6l.214.312a4.771,4.771,0,0,0,1.35,1.292,3.3,3.3,0,0,0,3.458-.175,1.545,1.545,0,0,0,.2-1.974c-.276-.395-.84-.727-2.443-1.422a8.8,8.8,0,0,1-3.349-2.055,4.687,4.687,0,0,1-.976-1.777,7.116,7.116,0,0,1-.062-2.268,4.332,4.332,0,0,1,3.644-3.374A9,9,0,0,1,23.827,8.243ZM15.484,9.726l.011,1.454h-4.63V24.328H7.6V11.183H2.97V9.755A13.986,13.986,0,0,1,3.01,8.289c.017-.023,2.832-.034,6.245-.028l6.211.017Z"
             style={{ fill: "#007acc" }}
@@ -109,13 +112,9 @@ const SKILLS: {
       <svg
         {...props.imageProps}
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 202 250"
+        viewBox="-20 15 250 250"
         fill="none"
       >
-        <path
-          d="M18.4151 32.85C26.2451 32.85 30.6551 29.025 33.3101 24.345L24.6251 19.44C23.3201 21.78 21.6551 23.4 18.6851 23.4C15.2201 23.4 12.7901 20.52 12.7901 16.425V16.335C12.7901 12.555 15.1301 9.45 18.6851 9.45C21.5651 9.45 23.2301 11.025 24.4001 13.275L33.0851 8.19C30.4301 3.375 25.7501 0 18.8201 0C9.41508 0 2.08008 7.02 2.08008 16.425V16.515C2.08008 26.28 9.68508 32.85 18.4151 32.85ZM32.4973 32.175H43.7473L45.3673 27.945H56.3923L58.0573 32.175H69.4873L56.2123 0.450002H45.7723L32.4973 32.175ZM48.0223 20.475L50.9023 12.825L53.7823 20.475H48.0223ZM70.7835 32.175H81.2235V17.64L92.9235 32.175H102.283V0.675002H91.8435V14.58L80.6385 0.675002H70.7835V32.175ZM116.381 32.4H126.461L139.241 0.675002H127.631L121.511 18.36L115.391 0.675002H103.601L116.381 32.4ZM133.747 32.175H144.997L146.617 27.945H157.642L159.307 32.175H170.737L157.462 0.450002H147.022L133.747 32.175ZM149.272 20.475L152.152 12.825L155.032 20.475H149.272ZM185.139 32.76C193.599 32.76 199.044 28.71 199.044 22.095V22.005C199.044 15.66 193.644 13.32 185.589 11.835C182.259 11.205 181.404 10.665 181.404 9.81V9.72C181.404 8.955 182.124 8.415 183.699 8.415C186.624 8.415 190.179 9.36 193.149 11.52L198.279 4.41C194.634 1.53 190.134 0.089999 184.059 0.089999C175.374 0.089999 170.694 4.725 170.694 10.71V10.8C170.694 17.46 176.904 19.485 183.969 20.925C187.344 21.6 188.334 22.095 188.334 22.995V23.085C188.334 23.94 187.524 24.435 185.634 24.435C181.944 24.435 178.029 23.355 174.609 20.745L168.984 27.45C172.989 30.96 178.749 32.76 185.139 32.76Z"
-          fill={appColors.ORANGE_SUNSHINE[400]}
-        />
         <path
           d="M28.5386 229.98L12.4254 49.1211H189.574L173.461 229.883L100.853 250"
           fill={appColors.ORANGE_SUNSHINE[500]}
@@ -196,32 +195,97 @@ function SkillsBtnC({ setViewState }: LandingPageParams) {
 
 export const SkillsBtn = memo(SkillsBtnC);
 
+function SkillC(props: {
+  head: string;
+  body: string;
+  img: ImageComponentT;
+  openToggle: Function;
+  isOpen: boolean;
+  isAnyOtherOpen: boolean;
+}) {
+  return (
+    <div className={`flex gap-6 h-1/6`} key={props.head}>
+      <button
+        onClick={() => props.openToggle()}
+        className="flex h-full dark:bg-YOYO-700 dark:bg-opacity-40 rounded-xl"
+      >
+        <props.img imageProps={{ className: "h-full w-full" }} />
+      </button>
+      <div
+        className={`flex gap-6 bg-MANNA-800 bg-opacity-30 rounded-xl items-center ${
+          props.isOpen ? "" : "hidden"
+        }`}
+      >
+        <h1 className={`flex text-PINK_PONG-500 text-xl font-extrabold`}>
+          <TitleCase>{props.head}</TitleCase>
+        </h1>
+        <p className={`flex font-bold text-ORANGE_SUNSHINE-500`}>
+          <SentenceCase>{props.body}</SentenceCase>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+const Skill = memo(SkillC);
+
 function Skills() {
   const { translations } = useLocalization();
+  const [openIndex, setOpenIndex] = useState<number>(NaN);
+  const { selectedHead, selectedBody, SelectedImg } = useMemo(() => {
+    return {
+      selectedHead: SKILLS[openIndex]?.head,
+      selectedBody: SKILLS[openIndex]?.body,
+      SelectedImg: SKILLS[openIndex]?.image,
+    };
+  }, [openIndex]);
+
+  const toggleOpen = (index: number) => {
+    setOpenIndex(openIndex === index ? NaN : index);
+  };
+
   return (
-    <div className="select-none flex lg:w-2/3 w-2/3 flex-col dark:bg-POP_BLACK-400 dark:bg-opacity-30 px-8 py-4">
-      {SKILLS.map((skill, index) => (
-        <div
-          className={`flex relative gap-4 flex-grow ${
-            index % 2 === 0 ? "flex-row-reverse" : ""
-          }  `}
-          key={skill.head}
-        >
-          <div
-            className={`flex gap-2 ${
-              index % 2 === 0 ? "flex-row-reverse" : ""
-            }`}
-          >
-            <skill.image imageProps={{ className: "h-full flex" }} />
-            <span className="flex dark:text-YOYO-500 font-extrabold text-2xl text-center items-center">
-              <TitleCase>{translations[skill.head]}</TitleCase>
-            </span>
+    <div className={`content-center h-full w-3/5 flex pt-6`}>
+      <div className={`flex flex-col sm:flex-row `}>
+        {SKILLS.map(
+          (skill, index) =>
+            isNaN(openIndex) && (
+              <button onClick={() => toggleOpen(index)}>
+                <skill.image imageProps={{ className: "h-full w-full" }} />
+              </button>
+            )
+        )}
+      </div>
+      <div
+        className={`transition-width duration-500 select-none flex items-center flex-col sm:px-8 px-2 gap-6 ${
+          isNaN(openIndex) ? "w-0" : "w-full"
+        }`}
+      >
+        {SelectedImg && (
+          <div className="flex gap-4 flex-col">
+            <button
+              className="flex justify-center text-3xl"
+              onClick={() => toggleOpen(NaN)}
+            >
+              <FaArrowLeft  />
+            </button>
+            <button
+              className="flex justify-center items-center"
+              onClick={() => toggleOpen(openIndex)}
+            >
+              <SelectedImg imageProps={{ className: "h-2/3 w-2/3" }} />
+            </button>
           </div>
-          <div className="dark:text-ORANGE_SUNSHINE-600 flex flex-grow text-justify font-bold items-center">
-            <SentenceCase>{translations[skill.body]}</SentenceCase>
-          </div>
-        </div>
-      ))}
+        )}
+        <h1 className="text-3xl font-extrabold text-ORANGE_SUNSHINE-600 dark:bg-POP_BLACK-400 dark:bg-opacity-50 rounded-xl">
+          {selectedHead && <UpperCase>{translations[selectedHead]}</UpperCase>}
+        </h1>
+        <p className={`font-bold overflow-auto text-PARK_GREEN-600 dark:bg-POP_BLACK-400 dark:bg-opacity-50 rounded-2xl text-justify`}>
+          {SKILLS[openIndex] && (
+            <SentenceCase>{translations[selectedBody]}</SentenceCase>
+          )}
+        </p>
+      </div>
     </div>
   );
 }

@@ -14,7 +14,7 @@ export const translations = {
   clickTrails: "click & drag for trails",
   react: "react",
   reactDesc:
-    "skilled at react and fluent in js and ts. i've led projects, built complex apps with react, integrated reactive programming with rxjs, and focused on making software more accessible. developed high-performing, user-friendly web solutions as well as libraries to make the dev process smoother.",
+    "skilled at react and fluent in JS and TS. i've led projects, built complex apps with react, integrated reactive programming with rxjs, and focused on making software more accessible. developed high-performing, user-friendly web solutions as well as libraries to make the dev process smoother.",
   typescript: "typescript",
   typescriptDesc:
     "experienced in typescript, using it extensively alongside react and angular to build robust applications. worked on app-wide architecture, implemented microfrontend structures, and written framework-agnostic utilities. focused on delivering high-performing, user-friendly solutions and developing libraries like a11y-ninja to enhance accessibility.",
@@ -24,7 +24,7 @@ export const translations = {
   canvas: "canvas",
   canvasDesc:
     "adept at using canvas for creating interactive, media-rich applications. developed gamified assessments with advanced animations and process monitoring tools, contributing significantly to user engagement and application performance. projects often integrate canvas with angular and react.",
-  accessibility: "accessibility",
+  accessibility: "WCAG",
   accessibilityDesc:
     "dedicated to enhancing software accessibility, focusing on wcag compliance and improving user inclusivity. developed algorithms for keyboard navigation, created features for interactive assessments, and built accessible, user-friendly web solutions. contributions include making platforms wcag-compliant and developing accessibility libraries.",
   findMe : "find me"

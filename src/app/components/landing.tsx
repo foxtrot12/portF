@@ -26,7 +26,7 @@ function Landing() {
       {viewState === "info" && <Info />}
       {viewState === "skills" && <Skills />}
       <div className="flex flex-col select-none justify-right pt-1 flex-grow ">
-        <div className="flex self-end pr-6 flex-grow dark:text-PINK_PONG-300 pt-6">
+        <div className="flex self-end text-right pr-6 flex-grow dark:text-PINK_PONG-300 pt-6">
           {viewState === "info" && (
             <TitleCase>{translations.dragToSpin}</TitleCase>
           )}

@@ -1,11 +1,17 @@
-import { switchMap, of, Observable } from "rxjs";
-import { fromFetch } from "rxjs/fetch";
-
 export function getTitleCase(text: string): string {
   return text.replace(/\w\S*/g, (word: string) => {
     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
   });
 }
+
+export function getSentenceCase(text: string): string {
+  if (!text) return text;
+  
+  return text
+    .toLowerCase()
+    .replace(/(^\s*\w|[.!?]\s*\w)/g, (char: string) => char.toUpperCase());
+}
+
 
 export async function downloadFile(url: string, fileName : string): Promise<void> {
   try {

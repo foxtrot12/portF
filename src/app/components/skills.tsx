@@ -80,7 +80,7 @@ function Skills() {
 
   return (
     <div className={`content-center h-full flex pt-6`}>
-      <div className={`flex flex-col sm:flex-row ${isNaN(openIndex) ? 'sm:w-full w-1/3' :''}`}>
+      <div className={`flex flex-col sm:flex-row ${isNaN(openIndex) ? 'sm:w-full self-center w-1/3' :''}`}>
         {SKILLS.map(
           (skill, index) =>
             isNaN(openIndex) && (
@@ -107,7 +107,7 @@ function Skills() {
               className="flex justify-center items-center"
               onClick={() => toggleOpen(openIndex)}
             >
-              <SelectedImg imageProps={{ className: "h-2/3 w-2/3" }} />
+              <SelectedImg imageProps={{ className: "h-2/3 w-1/4" }} />
             </button>
           </div>
         )}

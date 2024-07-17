@@ -20,6 +20,26 @@ function Orbit() {
   useEffect(() => {
     const orbs: any[] = [];
 
+    const subsManager = new Subscription();
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    const container = contRef.current;
+
+    if (!ctx || !container) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const dpr = window.devicePixelRatio;
+    const rect = container.getBoundingClientRect();
+    const cw = rect.width;
+    const ch = rect.height;
+    canvas.width = cw;
+    canvas.height = ch;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // ctx.scale(dpr, dpr);
+    ctx.lineCap = "round";
+
     const createOrb = (
       mx: number,
       my: number,
@@ -80,25 +100,6 @@ function Orbit() {
         },
       });
     };
-    const subsManager = new Subscription();
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    const container = contRef.current;
-
-    if (!ctx || !container) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const dpr = window.devicePixelRatio;
-    const rect = container.getBoundingClientRect();
-    const cw = rect.width;
-    const ch = rect.height;
-    canvas.width = cw * dpr;
-    canvas.height = ch * dpr;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.scale(dpr, dpr);
-    ctx.lineCap = "round";
 
     const handleMouseMove = (e: MouseEvent) => {
       const mx = e.pageX - canvas.offsetLeft;

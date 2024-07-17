@@ -11,7 +11,7 @@ export const translations = {
   aboutMe:
     "i am chinmaya, a passionate web developer skilled in angular, react, and reactive programming. i excel at creating visually appealing, accessible web applications and quickly adapt to new frameworks. with experience in unity and c#, i have led projects enhancing frontend stability and software accessibility. let's connect and build something amazing together!",
   skills: `skills`,
-  clickTrails: "click & drag for trails",
+  clickTrails: "click for trails",
   react: "react",
   reactDesc:
     "skilled at react and fluent in JS and TS. i've led projects, built complex apps with react, integrated reactive programming with rxjs, and focused on making software more accessible. developed high-performing, user-friendly web solutions as well as libraries to make the dev process smoother.",

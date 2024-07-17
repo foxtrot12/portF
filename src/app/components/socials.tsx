@@ -22,7 +22,7 @@ function Socials() {
   },[isOpen])
 
   return (
-    <div className="flex items-center ">
+    <div className="flex items-center sm:flex-row flex-col sm:gap-0 gap-8">
       {" "}
       <span
         tabIndex={-1}
@@ -46,7 +46,7 @@ function Socials() {
       </span>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`px-4 transition-all duration-500 flex dark:text-MANNA-500 rounded-2xl h-12 w-44 items-center justify-center dark:bg-opacity-20 ${
+        className={`px-4 transition-all duration-500 flex dark:text-MANNA-500 rounded-2xl sm:h-12 h-10 sm:w-44 w-28 items-center justify-center dark:bg-opacity-20 ${
           isOpen
             ? " dark:bg-POLI_PURPLE-500 rotate-90"
             : "dark:bg-ORANGE_SUNSHINE-500"

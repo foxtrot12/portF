@@ -15,7 +15,7 @@ function Landing() {
   const [viewState, setViewState] = useState<ViewT>("info");
 
   return (
-    <div className="h-full font-mono flex gap-4 flex-grow overflow-hidden">
+    <div className="h-full font-mono flex gap-4 flex-grow relative overflow-hidden">
       <span
         style={{ zIndex: "-1" }}
         className=" dark:bg-POP_BLACK-300 bg-MANNA-300 absolute h-full w-full overflow-hidden"
@@ -29,7 +29,7 @@ function Landing() {
         {viewState === "skills" && <Skills />}
       </div>
       <div className="flex flex-col select-none w-1/3 justify-right h-full pt-1 flex-grow ">
-        <div className="flex pr-6 flex-grow dark:text-PINK_PONG-300 pt-6">
+        <div className="flex pr-6 flex-grow dark:text-PINK_PONG-300 pt-6 justify-end">
           {viewState === "info" && (
             <TitleCase>{translations.dragToSpin}</TitleCase>
           )}

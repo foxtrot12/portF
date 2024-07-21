@@ -99,18 +99,7 @@ const config: Config = {
       zIndex: {
         bg: "-1",
       },
-      scrollbar: {
-        'custom': {
-          'width': '12px',
-          'track': {
-            'bg': '#f1f1f1',
-          },
-          'thumb': {
-            'bg': '#888',
-            'rounded': '999px',
-          },
-        },
-      },
+
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -119,8 +108,6 @@ const config: Config = {
       colors: { ...appColors },
     },
   },
-  plugins: [
-    require('tailwind-scrollbar')
-  ],
+
 };
 export default config;

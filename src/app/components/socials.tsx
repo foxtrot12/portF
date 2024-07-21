@@ -1,13 +1,14 @@
 import { FC, memo, useEffect, useRef, useState } from "react";
 import { useLocalization } from "../common/localization";
 import TitleCase from "./titleCase";
-import { FaGithub, FaTwitter, FaYahoo } from "react-icons/fa6";
+import { FaGithub, FaLinkedin, FaTwitter, FaYahoo } from "react-icons/fa6";
 import Link from "next/link";
 
 const SOCIALS: { link: string; icon: FC }[] = [
   { link: "https://github.com/foxtrot12", icon: FaGithub },
   { link: "mailto:s.chinmaya@myyahoo.com", icon: FaYahoo },
   { link: "https://x.com/ChinmayaSh", icon: FaTwitter },
+  {link: "https://www.linkedin.com/in/chinmayas", icon: FaLinkedin}
 ];
 
 function Socials() {

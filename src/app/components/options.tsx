@@ -52,7 +52,12 @@ function InfoBtnC({ setViewState }: LandingPageParams) {
   );
   return (
     <button {...parentProps} onClick={() => setViewState("info")}>
-      <TitleCase>{`${translations.info}`}</TitleCase>
+      <span className="sm:flex hidden">
+        <TitleCase>{`${translations.information}`}</TitleCase>
+      </span>
+      <span className="sm:hidden flex">
+        <TitleCase>{`${translations.info}`}</TitleCase>
+      </span>
       <div {...innerProps}>
         {" "}
         <LinesBg lineColor={linesColor} />
@@ -79,7 +84,12 @@ function ResumeBtnC() {
       {...parentProps}
       onClick={() => downloadFile(resumeUrl, "Chinmaya_Sharma_Resume.pdf")}
     >
-      <TitleCase>{`${translations.download} ${translations.resume}`}</TitleCase>
+      <span className="sm:flex hidden">
+        <TitleCase>{`${translations.download} ${translations.resume}`}</TitleCase>
+      </span>
+      <span className="sm:hidden flex">
+        <TitleCase>{`${translations.resume}`}</TitleCase>
+      </span>
       <div {...innerProps}>
         {" "}
         <LinesBg lineColor={linesColor} />

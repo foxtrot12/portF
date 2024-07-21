@@ -79,7 +79,7 @@ function Skills() {
   };
 
   return (
-    <div className={`content-center h-full flex pt-6`}>
+    <div className={`content-center h-full flex pt-6 sm:w-2/3 w-full`}>
       <div className={`flex flex-col sm:flex-row ${isNaN(openIndex) ? 'sm:w-full self-center w-1/3' :''}`}>
         {SKILLS.map(
           (skill, index) =>
@@ -114,7 +114,7 @@ function Skills() {
         <h1 className="text-3xl font-extrabold text-ORANGE_SUNSHINE-600 dark:bg-POP_BLACK-400 dark:bg-opacity-50 rounded-xl">
           {selectedHead && <UpperCase>{translations[selectedHead]}</UpperCase>}
         </h1>
-        <p className={`font-bold overflow-auto text-PARK_GREEN-600 dark:bg-POP_BLACK-400 dark:bg-opacity-50 rounded-2xl text-justify`}>
+        <p className={`font-bold p-2 overflow-auto text-PARK_GREEN-600 dark:bg-POP_BLACK-400 dark:bg-opacity-50 rounded-2xl text-justify`}>
           {SKILLS[openIndex] && (
             <SentenceCase>{translations[selectedBody]}</SentenceCase>
           )}

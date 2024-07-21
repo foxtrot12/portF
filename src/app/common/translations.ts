@@ -2,16 +2,16 @@ export const translations = {
   chini: "chinmaya",
   chinmaya: "chinmaya sharma",
   websiteDesc: "your favorite web developer",
-  dragToSpin: "drag to spin !",
+  dragToSpin: "drag anywhere to spin !",
   resume: "resume",
   mario: "mario",
   download: "download",
   getToKnowMe: "get to know me",
-  info: "information",
+  information: "information",
   aboutMe:
     "i am chinmaya, a passionate web developer skilled in angular, react, and reactive programming. i excel at creating visually appealing, accessible web applications and quickly adapt to new frameworks. with experience in unity and c#, i have led projects enhancing frontend stability and software accessibility. let's connect and build something amazing together!",
   skills: `skills`,
-  clickTrails: "click for trails",
+  clickTrails: "click anywhere for trails !",
   react: "react",
   reactDesc:
     "skilled at react and fluent in JS and TS. i've led projects, built complex apps with react, integrated reactive programming with rxjs, and focused on making software more accessible. developed high-performing, user-friendly web solutions as well as libraries to make the dev process smoother.",
@@ -27,5 +27,7 @@ export const translations = {
   accessibility: "WCAG",
   accessibilityDesc:
     "dedicated to enhancing software accessibility, focusing on wcag compliance and improving user inclusivity. developed algorithms for keyboard navigation, created features for interactive assessments, and built accessible, user-friendly web solutions. contributions include making platforms wcag-compliant and developing accessibility libraries.",
-  findMe : "find me"
+  findMe : "find me",
+  info : 'info',
+  forward : 'forward'
 };

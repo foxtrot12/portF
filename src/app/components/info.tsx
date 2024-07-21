@@ -3,10 +3,15 @@ import { asyncScheduler } from "rxjs";
 import { getRandomNumberBetween } from "../common/jsUtils";
 import { useLocalization } from "../common/localization";
 import SentenceCase from "./sentenceCase";
+import TitleCase from "./titleCase";
+import { FaArrowRightArrowLeft, FaForward } from "react-icons/fa6";
+
+function InfoTxt() {}
 
 function Info() {
   const { translations } = useLocalization();
   const [currentTxt, setCurrentTxt] = useState<string>("");
+
   const textContainerRef = useRef<HTMLDivElement>(null);
 
   const INFO_TXT = useMemo(() => {
@@ -39,12 +44,23 @@ function Info() {
   return (
     <div
       aria-label={INFO_TXT}
-      className="flex dark:text-teal-400 font-bold items-center text-YOYO-600 h-full lg:w-2/3 w-full text-xl lg-py-6 px-4 py-2 lg-px-12 bg-opacity-60 bg-POP_BLACK-300"
+      className="flex gap-2 flex-col justify-center h-full lg:w-2/3 w-full lg-py-6 px-4 py-2 lg-px-12 bg-opacity-60 bg-POP_BLACK-300"
     >
+      {(currentTxt !== INFO_TXT) && (
+        <button
+          aria-hidden={true}
+          tabIndex={-1}
+          className="flex justify-end items-center gap-2 dark:text-MANNA-500 font-extraLight"
+          onClick={()=>{setCurrentTxt(INFO_TXT)}}
+        >
+          <TitleCase>{translations.forward}</TitleCase>
+          <FaForward />
+        </button>
+      )}
       <div
         aria-hidden={true}
         ref={textContainerRef}
-        className="h-full w-full overflow-y-auto scrollbar content-center scrollbar-custom items-center"
+        className="font-bold  text-xl overflow-x-hidden dark:text-teal-400 text-YOYO-600 sm:overflow-y-hidden overflow-y-auto flex"
       >
         <SentenceCase>{currentTxt}</SentenceCase>
       </div>

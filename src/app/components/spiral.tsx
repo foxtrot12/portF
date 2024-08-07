@@ -3,10 +3,11 @@
 import React, { memo, useEffect, useRef } from "react";
 import { fromEvent, animationFrameScheduler, Subscription } from "rxjs";
 import { switchMap, takeUntil, tap } from "rxjs/operators";
-import { appColors } from "../../../tailwind.config";
 import { useWindowSize } from "../common/windowSize";
 
 interface SpiralProp {
+  strokeColor : string,
+  shadowColor : string,
   animationStarted?: Function;
 }
 
@@ -48,8 +49,8 @@ const Spiral = (props: SpiralProp) => {
       const cy = windowSize.height / 1.5;
 
       context.globalCompositeOperation = "lighter";
-      context.strokeStyle = appColors.ORANGE_SUNSHINE[500];
-      context.shadowColor = appColors.POLI_PURPLE[500];
+      context.strokeStyle = props.strokeColor;
+      context.shadowColor = props.shadowColor;
       context.lineWidth = 1.5;
       context.shadowBlur = 10;
       context.shadowOffsetX = 5;

@@ -4,6 +4,7 @@ import React, { memo, useEffect, useRef } from "react";
 import { fromEvent, animationFrameScheduler, Subscription } from "rxjs";
 import { switchMap, takeUntil, tap } from "rxjs/operators";
 import { useWindowSize } from "../common/windowSize";
+import useTheme from "../common/useTheme";
 
 interface SpiralProp {
   strokeColor : string,
@@ -14,8 +15,10 @@ interface SpiralProp {
 const Spiral = (props: SpiralProp) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const windowSize = useWindowSize();
+  const theme = useTheme()
 
   useEffect(() => {
+    console.log(props.strokeColor)
     const subsManager = new Subscription();
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -169,7 +172,7 @@ const Spiral = (props: SpiralProp) => {
     return () => {
       subsManager.unsubscribe();
     };
-  }, [windowSize]);
+  }, [windowSize, theme]);
 
   return <canvas ref={canvasRef} />;
 };

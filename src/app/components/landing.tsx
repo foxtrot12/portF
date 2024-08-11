@@ -9,6 +9,7 @@ import { Options } from "./options";
 import Socials from "./socials";
 import { appColors } from "../../../tailwind.config";
 import useTheme from "../common/useTheme";
+import ToggleTheme from "./toggleTheme";
 
 export type ViewT = "info" | "skills";
 
@@ -35,13 +36,12 @@ function Landing() {
         {viewState === "skills" && <Skills />}
       </div>
       <div className="flex flex-col select-none w-1/3 justify-right h-full pt-1 flex-grow ">
-        <div className="flex pr-6 flex-grow dark:text-pinkPong-300 text-teal-700 pt-6 justify-end">
-          {viewState === "info" && (
+        <div className="flex flex-col justify-start pr-6 flex-grow dark:text-pinkPong-300 items-end gap-4 text-teal-700 pt-6">
+        <ToggleTheme />
             <TitleCase>{translations.dragToSpin}</TitleCase>
-          )}
-          {viewState === "skills" && (
+          {/* {viewState === "skills" && (
             <TitleCase>{translations.clickTrails}</TitleCase>
-          )}
+          )} */}
         </div>
         <div className="flex pr-6 justify-end align-middle flex-grow">
           <Socials />

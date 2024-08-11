@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 type ThemeT = 'dark' | 'light';
 
 const useTheme = (): ThemeT => {
-  const [theme, setTheme] = useState<ThemeT>(getTheme());
+  const [theme, setTheme] = useState<ThemeT>('light');
 
   function getTheme():ThemeT{
     const className = document.body.className;

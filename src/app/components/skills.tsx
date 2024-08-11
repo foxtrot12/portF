@@ -8,6 +8,7 @@ import SentenceCase from "./sentenceCase";
 import { FaArrowLeft } from "react-icons/fa6";
 import UpperCase from "./upperCase";
 import { AccessibilityImg, AngularImg, CanvasImg, ReactImg, TSImage } from "../common/svgs";
+import useTheme from "../common/useTheme";
 
 type ImageComponentT = FC<{ imageProps?: PropsWithoutRef<any> }>;
 
@@ -45,10 +46,11 @@ const SKILLS: {
 
 function SkillsBtnC({ setViewState }: LandingPageParams) {
   const { translations } = useLocalization();
+  const theme = useTheme();
 
   const { parentProps, innerProps, linesColor } = useOptionsInteractive(
-    appColors.NEO_PACCHA[500],
-    appColors.ORANGE_SUNSHINE[500]
+    theme === 'dark' ? appColors.neoPaccha[500] : appColors.yoyo[600],
+    theme === 'dark' ? appColors.orangeSunshine[500] : appColors.parkGreen[600]
   );
   return (
     <button {...parentProps} onClick={() => setViewState("skills")}>
@@ -79,7 +81,7 @@ function Skills() {
   };
 
   return (
-    <div className={`content-center h-full flex pt-6 sm:w-2/3 w-full`}>
+    <div className={`content-center h-full flex pt-6 sm:w-2/3 w-full bg-sky-300 bg-opacity-20 dark:bg-opacity-60 dark:bg-popBlack-300`}>
       <div className={`flex flex-col sm:flex-row ${isNaN(openIndex) ? 'sm:w-full self-center w-1/3' :''}`}>
         {SKILLS.map(
           (skill, index) =>
@@ -98,7 +100,7 @@ function Skills() {
         {SelectedImg && (
           <div className="flex gap-4 flex-col">
             <button
-              className="flex justify-center text-3xl"
+              className="flex justify-center text-3xl text-teal-700 dark:text-popWhite-500"
               onClick={() => toggleOpen(NaN)}
             >
               <FaArrowLeft  />
@@ -111,10 +113,10 @@ function Skills() {
             </button>
           </div>
         )}
-        <h1 className="text-3xl font-extrabold text-ORANGE_SUNSHINE-600 dark:bg-POP_BLACK-400 dark:bg-opacity-50 rounded-xl">
+        <h1 className="text-3xl font-extrabold text-teal-700 dark:text-orangeSunshine-600 rounded-xl">
           {selectedHead && <UpperCase>{translations[selectedHead]}</UpperCase>}
         </h1>
-        <p className={`font-bold p-2 overflow-auto text-PARK_GREEN-600 dark:bg-POP_BLACK-400 dark:bg-opacity-50 rounded-2xl text-justify`}>
+        <p className={`font-bold p-2 overflow-auto text-sky-700 dark:text-parkGreen-600 rounded-2xl text-justify`}>
           {SKILLS[openIndex] && (
             <SentenceCase>{translations[selectedBody]}</SentenceCase>
           )}

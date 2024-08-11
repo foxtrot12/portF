@@ -66,7 +66,7 @@ function Orbit() {
         speed: (rand(5, 10) / 1000) * (dist / 750) + 0.015,
         alpha: 1 - Math.abs(dist) / cw,
         draw: function () {
-          ctx.strokeStyle = `hsla(${this.colorAngle}, 100%, 50%, 1)`;
+          ctx.strokeStyle = `hsla(200, 85%, ${rand(15, 30)}%, 1)`;
           ctx.lineWidth = this.size;
           ctx.beginPath();
           ctx.moveTo(this.lastX, this.lastY);
@@ -92,7 +92,7 @@ function Orbit() {
           if (y2 > y1 && slope === Infinity) angleH = 270;
           if (x2 < x1 && slope === 0) angleH = 180;
           if (isNaN(angleH)) angleH = 0;
-
+    
           this.colorAngle = angleH;
           this.x = this.centerX + Math.sin(this.angle * -1) * this.radius;
           this.y = this.centerY + Math.cos(this.angle * -1) * this.radius;
@@ -100,6 +100,7 @@ function Orbit() {
         },
       });
     };
+    
 
     const handleMouseMove = (e: MouseEvent) => {
       const mx = e.pageX - canvas.offsetLeft;
@@ -119,7 +120,7 @@ function Orbit() {
 
     const loop = () => {
       const updateOrbs = () => {
-        ctx.fillStyle = "rgba(0,0,0,.1)";
+        ctx.fillStyle = "rgb(186, 230, 253,.1)";
         ctx.fillRect(0, 0, cw, ch);
 
         orbs.forEach((orb) => {

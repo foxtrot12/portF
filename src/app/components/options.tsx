@@ -13,6 +13,7 @@ import LinesBg from "./linesBg";
 import { SkillsBtn } from "./skills";
 import TitleCase from "./titleCase";
 import { ViewT } from "./landing";
+import useTheme from "../common/useTheme";
 export interface LandingPageParams {
   setViewState: Dispatch<SetStateAction<ViewT>>;
   viewState?: ViewT;
@@ -31,7 +32,7 @@ export function useOptionsInteractive(
   return {
     parentProps: {
       className:
-        "flex relative bg-POP_BLACK-400 bg-opacity-40 self-end rounded-xl px-3 py-1 shadow-md border-solid border-1 border-MANNA-500",
+        "flex relative text-orange-100 bg-sky-700 dark:bg-popBlack-400 dark:bg-opacity-40 bg-opacity-50 self-end rounded-xl px-3 py-1 shadow-md border-solid border-1 border-manna-500",
       onPointerEnter: () => setLinesColor(hoverColor),
       onPointerLeave: () => setLinesColor(normalColor),
     },
@@ -45,11 +46,13 @@ export function useOptionsInteractive(
 
 function InfoBtnC({ setViewState }: LandingPageParams) {
   const { translations } = useLocalization();
+  const theme = useTheme();
 
   const { parentProps, innerProps, linesColor } = useOptionsInteractive(
-    appColors.NEO_PACCHA[500],
-    appColors.ORANGE_SUNSHINE[500]
+    theme === 'dark' ? appColors.neoPaccha[500] : appColors.poliPurple[700],
+    theme === 'dark' ? appColors.orangeSunshine[500] : appColors.manna[600]
   );
+
   return (
     <button {...parentProps} onClick={() => setViewState("info")}>
       <span className="sm:flex hidden">
@@ -70,13 +73,14 @@ const InfoBtn = memo(InfoBtnC);
 
 function ResumeBtnC() {
   const { translations } = useLocalization();
+  const theme = useTheme();
 
   const resumeUrl =
     "https://raw.githubusercontent.com/foxtrot12/resume/main/Chinmaya_Sharma_Resume.pdf";
 
   const { parentProps, innerProps, linesColor } = useOptionsInteractive(
-    appColors.PARK_GREEN[500],
-    appColors.YOYO[600]
+    theme === 'dark' ? appColors.parkGreen[500] : appColors.yoyo[700],
+    theme === 'dark' ? appColors.yoyo[600] : appColors.orangeSunshine[600]
   );
 
   return (
@@ -102,12 +106,13 @@ const ResumeBtn = memo(ResumeBtnC);
 
 function MarioLinkC() {
   const { translations } = useLocalization();
+  const theme = useTheme();
 
   const marioUrl = "https://foxtrot12.github.io/vitrol-enigma";
 
   const { parentProps, innerProps, linesColor } = useOptionsInteractive(
-    appColors.POLI_PURPLE[500],
-    appColors.PINK_PONG[500]
+    theme === 'dark' ?  appColors.poliPurple[500] : appColors.parkGreen[700],
+    theme === 'dark' ?  appColors.pinkPong[500] : appColors.pinkPong[600]
   );
 
   return (

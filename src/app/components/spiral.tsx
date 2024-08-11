@@ -3,18 +3,22 @@
 import React, { memo, useEffect, useRef } from "react";
 import { fromEvent, animationFrameScheduler, Subscription } from "rxjs";
 import { switchMap, takeUntil, tap } from "rxjs/operators";
-import { appColors } from "../../../tailwind.config";
 import { useWindowSize } from "../common/windowSize";
+import useTheme from "../common/useTheme";
 
 interface SpiralProp {
+  strokeColor : string,
+  shadowColor : string,
   animationStarted?: Function;
 }
 
 const Spiral = (props: SpiralProp) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const windowSize = useWindowSize();
+  const theme = useTheme()
 
   useEffect(() => {
+    console.log(props.strokeColor)
     const subsManager = new Subscription();
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -48,8 +52,8 @@ const Spiral = (props: SpiralProp) => {
       const cy = windowSize.height / 1.5;
 
       context.globalCompositeOperation = "lighter";
-      context.strokeStyle = appColors.ORANGE_SUNSHINE[500];
-      context.shadowColor = appColors.POLI_PURPLE[500];
+      context.strokeStyle = props.strokeColor;
+      context.shadowColor = props.shadowColor;
       context.lineWidth = 1.5;
       context.shadowBlur = 10;
       context.shadowOffsetX = 5;
@@ -168,7 +172,7 @@ const Spiral = (props: SpiralProp) => {
     return () => {
       subsManager.unsubscribe();
     };
-  }, [windowSize]);
+  }, [windowSize, theme]);
 
   return <canvas ref={canvasRef} />;
 };

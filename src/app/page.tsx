@@ -9,7 +9,7 @@ export default function Home() {
   }, []);
   return (
       <LocalizationProvider>
-        <main className="h-screen w-screen light:text-POP_BLACK-300 dark:text-POP_WHITE-400 flex overflow-hidden">
+        <main className="h-screen w-screen light:text-popBlack-300 dark:text-popWhite-400 flex overflow-hidden">
             <Landing />
         </main>
       </LocalizationProvider>

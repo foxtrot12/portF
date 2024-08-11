@@ -29,5 +29,6 @@ export const translations = {
     "dedicated to enhancing software accessibility, focusing on wcag compliance and improving user inclusivity. developed algorithms for keyboard navigation, created features for interactive assessments, and built accessible, user-friendly web solutions. contributions include making platforms wcag-compliant and developing accessibility libraries.",
   findMe : "find me",
   info : 'info',
-  forward : 'forward'
+  forward : 'forward',
+  switchTheme : 'switch theme'
 };

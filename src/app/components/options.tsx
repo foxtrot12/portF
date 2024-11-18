@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import {
   useState,
   memo,
@@ -7,6 +8,7 @@ import {
   SetStateAction,
   useMemo,
   useCallback,
+  Suspense,
 } from "react";
 import { appColors } from "../../../tailwind.config";
 import { downloadFile } from "../common/jsUtils";
@@ -79,23 +81,33 @@ function ResumeBtnC() {
   const { translations } = useLocalization();
   const theme = useTheme();
   const searchParams = useSearchParams();
+  const res = searchParams?.get('res') || '1';
   const downloadResume = useCallback(()=>{
 
-    const res = searchParams.get('res')
+    let resumeType : 'std' | 'angular' | 'react' = 'std';
 
     switch (res){
       case '1':
       default:
-        return downloadFile('https://raw.githubusercontent.com/foxtrot12/resume/main/std/Chinmaya_Sharma_Resume.pdf',"Chinmaya_Sharma_Resume.pdf")
+        resumeType = 'std'
+        break;
         
       case '2':
-        return downloadFile('https://raw.githubusercontent.com/foxtrot12/resume/main/angular/Chinmaya_Sharma_Resume.pdf',"Chinmaya_Sharma_Resume.pdf")
+        resumeType = 'angular'
+        break;
       
       case '3':
-        return downloadFile('https://raw.githubusercontent.com/foxtrot12/resume/main/react/Chinmaya_Sharma_Resume.pdf',"Chinmaya_Sharma_Resume.pdf")
+        resumeType = 'react'
+        break;
       
     }
-  },[searchParams.get('res')])
+
+    const resumeUrl = `https://raw.githubusercontent.com/foxtrot12/resume/main/${resumeType}/Chinmaya_Sharma_Resume.pdf`;
+    const fileName = 'Chinmaya_Sharma.pdf'
+
+    return downloadFile(resumeUrl,fileName)
+
+  },[res])
 
 
   const { parentProps, innerProps, linesColor } = useOptionsInteractive(
@@ -151,7 +163,9 @@ const MarioLink = memo(MarioLinkC);
 function OptionsC({ setViewState, viewState }: LandingPageParams) {
   return (
     <div className="flex flex-col gap-6 text-2xl ">
-      <ResumeBtn />
+      <Suspense>      
+        <ResumeBtn />
+      </Suspense>
       {viewState === "info" && <SkillsBtn setViewState={setViewState} />}
       {viewState === "skills" && <InfoBtn setViewState={setViewState} />}
       <MarioLink />

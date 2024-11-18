@@ -5,6 +5,8 @@ import {
   PropsWithoutRef,
   Dispatch,
   SetStateAction,
+  useMemo,
+  useCallback,
 } from "react";
 import { appColors } from "../../../tailwind.config";
 import { downloadFile } from "../common/jsUtils";
@@ -14,6 +16,8 @@ import { SkillsBtn } from "./skills";
 import TitleCase from "./titleCase";
 import { ViewT } from "./landing";
 import useTheme from "../common/useTheme";
+import { useSearchParams } from 'next/navigation';
+
 export interface LandingPageParams {
   setViewState: Dispatch<SetStateAction<ViewT>>;
   viewState?: ViewT;
@@ -74,9 +78,25 @@ const InfoBtn = memo(InfoBtnC);
 function ResumeBtnC() {
   const { translations } = useLocalization();
   const theme = useTheme();
+  const searchParams = useSearchParams();
+  const downloadResume = useCallback(()=>{
 
-  const resumeUrl =
-    "https://raw.githubusercontent.com/foxtrot12/resume/main/Chinmaya_Sharma_Resume.pdf";
+    const res = searchParams.get('res')
+
+    switch (res){
+      case '1':
+      default:
+        return downloadFile('https://raw.githubusercontent.com/foxtrot12/resume/main/std/Chinmaya_Sharma_Resume.pdf',"Chinmaya_Sharma_Resume.pdf")
+        
+      case '2':
+        return downloadFile('https://raw.githubusercontent.com/foxtrot12/resume/main/angular/Chinmaya_Sharma_Resume.pdf',"Chinmaya_Sharma_Resume.pdf")
+      
+      case '3':
+        return downloadFile('https://raw.githubusercontent.com/foxtrot12/resume/main/react/Chinmaya_Sharma_Resume.pdf',"Chinmaya_Sharma_Resume.pdf")
+      
+    }
+  },[searchParams.get('res')])
+
 
   const { parentProps, innerProps, linesColor } = useOptionsInteractive(
     theme === 'dark' ? appColors.parkGreen[500] : appColors.yoyo[700],
@@ -86,7 +106,7 @@ function ResumeBtnC() {
   return (
     <button
       {...parentProps}
-      onClick={() => downloadFile(resumeUrl, "Chinmaya_Sharma_Resume.pdf")}
+      onClick={downloadResume}
     >
       <span className="sm:flex hidden">
         <TitleCase>{`${translations.download} ${translations.resume}`}</TitleCase>

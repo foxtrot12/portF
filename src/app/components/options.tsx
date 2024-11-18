@@ -1,10 +1,14 @@
 import Link from "next/link";
+
 import {
   useState,
   memo,
   PropsWithoutRef,
   Dispatch,
   SetStateAction,
+  useMemo,
+  useCallback,
+  Suspense,
 } from "react";
 import { appColors } from "../../../tailwind.config";
 import { downloadFile } from "../common/jsUtils";
@@ -14,6 +18,8 @@ import { SkillsBtn } from "./skills";
 import TitleCase from "./titleCase";
 import { ViewT } from "./landing";
 import useTheme from "../common/useTheme";
+import { useSearchParams } from 'next/navigation';
+
 export interface LandingPageParams {
   setViewState: Dispatch<SetStateAction<ViewT>>;
   viewState?: ViewT;
@@ -74,9 +80,35 @@ const InfoBtn = memo(InfoBtnC);
 function ResumeBtnC() {
   const { translations } = useLocalization();
   const theme = useTheme();
+  const searchParams = useSearchParams();
+  const res = searchParams?.get('res') || '1';
+  const downloadResume = useCallback(()=>{
 
-  const resumeUrl =
-    "https://raw.githubusercontent.com/foxtrot12/resume/main/Chinmaya_Sharma_Resume.pdf";
+    let resumeType : 'std' | 'angular' | 'react' = 'std';
+
+    switch (res){
+      case '1':
+      default:
+        resumeType = 'std'
+        break;
+        
+      case '2':
+        resumeType = 'angular'
+        break;
+      
+      case '3':
+        resumeType = 'react'
+        break;
+      
+    }
+
+    const resumeUrl = `https://raw.githubusercontent.com/foxtrot12/resume/main/${resumeType}/Chinmaya_Sharma_Resume.pdf`;
+    const fileName = 'Chinmaya_Sharma.pdf'
+
+    return downloadFile(resumeUrl,fileName)
+
+  },[res])
+
 
   const { parentProps, innerProps, linesColor } = useOptionsInteractive(
     theme === 'dark' ? appColors.parkGreen[500] : appColors.yoyo[700],
@@ -86,7 +118,7 @@ function ResumeBtnC() {
   return (
     <button
       {...parentProps}
-      onClick={() => downloadFile(resumeUrl, "Chinmaya_Sharma_Resume.pdf")}
+      onClick={downloadResume}
     >
       <span className="sm:flex hidden">
         <TitleCase>{`${translations.download} ${translations.resume}`}</TitleCase>
@@ -131,7 +163,9 @@ const MarioLink = memo(MarioLinkC);
 function OptionsC({ setViewState, viewState }: LandingPageParams) {
   return (
     <div className="flex flex-col gap-6 text-2xl ">
-      <ResumeBtn />
+      <Suspense>      
+        <ResumeBtn />
+      </Suspense>
       {viewState === "info" && <SkillsBtn setViewState={setViewState} />}
       {viewState === "skills" && <InfoBtn setViewState={setViewState} />}
       <MarioLink />
